@@ -1,5 +1,6 @@
 package com.example.paintbe.Service.FileMangementService;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Collections;
 
 @Component
 public class LoadService {
@@ -38,9 +40,18 @@ public class LoadService {
     public JSONObject convertFileToJSON(String data, String format) {
         return switch (format) {
             case "json" -> new JSONObject(data);
-            case "xml" -> XML.toJSONObject(data).getJSONObject("root");
+            case "xml" -> addJsonArray(XML.toJSONObject(data).getJSONObject("root"));
             default -> null;
         };
+    }
+
+    private JSONObject addJsonArray(JSONObject jsonObject){
+        JSONObject childrenOne = jsonObject.getJSONObject("children");
+        JSONArray array = new JSONArray();
+        array.put(childrenOne);
+        jsonObject = new JSONObject();
+        jsonObject.put("children", array);
+        return jsonObject;
     }
 
 }

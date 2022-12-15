@@ -98,9 +98,12 @@ public class PaintService implements IOperation{
         shapeRepository.clearAll();
 
         JSONObject jsonObject = new JSONObject(json);
+        System.out.println(jsonObject);
+
         JSONArray childrenOne = jsonObject.getJSONArray("children");
         JSONObject childOneObject = (JSONObject) childrenOne.get(0);
         JSONArray childTwo = childOneObject.getJSONArray("children");
+        System.out.println(childTwo);
 
         for (int i = 1; i < childTwo.length(); i++) addNewShape(childTwo.get(i).toString());
         shapeRepository.clearUndoActions();
