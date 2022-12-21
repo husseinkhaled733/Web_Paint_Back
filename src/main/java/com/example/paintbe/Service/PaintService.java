@@ -41,7 +41,7 @@ public class PaintService implements IOperation{
         shapeRepository.updateShape(shape);
         shapeRepository.clearRedoStack();
 
-        shapeRepository.printDb();
+        //shapeRepository.printDb();
     }
 
     @Override
